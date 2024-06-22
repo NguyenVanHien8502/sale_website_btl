@@ -10,7 +10,7 @@ import {Link} from "react-router-dom";
 import {Outlet} from "react-router-dom";
 import {ImBlog} from "react-icons/im";
 import {IoIosNotifications} from "react-icons/io";
-import {FaClipboardList, FaBloggerB} from "react-icons/fa";
+import {FaClipboardList} from "react-icons/fa";
 import {SiBrandfolder} from "react-icons/si";
 import {BiCategoryAlt} from "react-icons/bi";
 import {Layout, Menu, theme} from "antd";
@@ -113,38 +113,38 @@ const MainLayout = () => {
                 },
               ],
             },
-            {
-              key: "blogs",
-              icon: <FaBloggerB className="fs-4" />,
-              label: "Blogs",
-              children: [
-                {
-                  key: "blog",
-                  icon: <ImBlog className="fs-4" />,
-                  label: "Add Blog",
-                },
-                {
-                  key: "blog-list",
-                  icon: <FaBloggerB className="fs-4" />,
-                  label: "Blog List",
-                },
-                {
-                  key: "blog-category",
-                  icon: <ImBlog className="fs-4" />,
-                  label: "Add Blog Category",
-                },
-                {
-                  key: "blog-category-list",
-                  icon: <FaBloggerB className="fs-4" />,
-                  label: "Blog Category List",
-                },
-              ],
-            },
-            {
-              key: "enquiries",
-              icon: <FaClipboardList className="fs-4" />,
-              label: "Enquiries",
-            },
+            // {
+            //   key: "blogs",
+            //   icon: <FaBloggerB className="fs-4" />,
+            //   label: "Blogs",
+            //   children: [
+            //     {
+            //       key: "blog",
+            //       icon: <ImBlog className="fs-4" />,
+            //       label: "Add Blog",
+            //     },
+            //     {
+            //       key: "blog-list",
+            //       icon: <FaBloggerB className="fs-4" />,
+            //       label: "Blog List",
+            //     },
+            //     {
+            //       key: "blog-category",
+            //       icon: <ImBlog className="fs-4" />,
+            //       label: "Add Blog Category",
+            //     },
+            //     {
+            //       key: "blog-category-list",
+            //       icon: <FaBloggerB className="fs-4" />,
+            //       label: "Blog Category List",
+            //     },
+            //   ],
+            // },
+            // {
+            //   key: "enquiries",
+            //   icon: <FaClipboardList className="fs-4" />,
+            //   label: "Enquiries",
+            // },
           ]}
         />
       </Sider>
