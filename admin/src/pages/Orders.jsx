@@ -13,6 +13,7 @@ import {MdDeleteForever} from "react-icons/md";
 const Orders = () => {
   const [data, setData] = useState([]);
   const [allProduct, setAllProduct] = useState([]);
+  const [keySearch, setKeySearch] = useState("");
   const fetchData = async () => {
     try {
       const token = JSON.parse(localStorage.getItem("access_token"));
@@ -32,26 +33,32 @@ const Orders = () => {
 
         localStorage.setItem("access_token", JSON.stringify(newToken));
         // Tiếp tục sử dụng token mới
-        const res = await axios.get(
+        const res = await axios.post(
           "http://localhost:5000/api/orderAdmin/get-all-orders",
+          {
+            keySearch: keySearch,
+          },
           {
             headers: {
               Authorization: `Bearer ${newToken}`,
             },
           }
         );
-        setData(res.data);
+        setData(res.data.orders);
       } else {
         // Token còn hiệu lực, tiếp tục sử dụng
-        const response = await axios.get(
+        const response = await axios.post(
           "http://localhost:5000/api/orderAdmin/get-all-orders",
+          {
+            keySearch: keySearch,
+          },
           {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           }
         );
-        setData(response.data);
+        setData(response.data.orders);
       }
     } catch (error) {
       throw new Error(error);
@@ -73,7 +80,7 @@ const Orders = () => {
     fetchData();
     fetchAllProduct();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [keySearch]);
 
   const [dataOneProduct, setDataOneProduct] = useState({});
   const [showModalProduct, setShowModalProduct] = useState(false);
@@ -384,6 +391,15 @@ const Orders = () => {
         <button className="button" onClick={() => handleShowModalAddOrder()}>
           Add Order
         </button>
+      </div>
+      <div className="input_container">
+        <input
+          type="text"
+          className="input"
+          placeholder="Search here"
+          value={keySearch}
+          onChange={(e) => setKeySearch(e.target.value)}
+        />
       </div>
       <div className="container table-responsive">
         <table className="table table-bordered table-hover">

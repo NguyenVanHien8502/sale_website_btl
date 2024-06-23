@@ -109,6 +109,7 @@ const Productlist = () => {
     brand: "",
     quantity: "",
   });
+  const [keySearch, setKeySearch] = useState("");
   const fetchData = async () => {
     try {
       const token = JSON.parse(localStorage.getItem("access_token"));
@@ -128,20 +129,22 @@ const Productlist = () => {
 
         localStorage.setItem("access_token", JSON.stringify(newToken));
         // Tiếp tục sử dụng token mới
-        const res = await axios.get("http://localhost:5000/api/product/", {
-          headers: {
-            Authorization: `Bearer ${newToken}`,
-          },
-        });
-        setData(res.data);
+        const res = await axios.post(
+          "http://localhost:5000/api/product/get-all-products",
+          {
+            keySearch: keySearch,
+          }
+        );
+        setData(res.data.products);
       } else {
         // Token còn hiệu lực, tiếp tục sử dụng
-        const response = await axios.get("http://localhost:5000/api/product/", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        setData(response.data);
+        const response = await axios.post(
+          "http://localhost:5000/api/product/get-all-products",
+          {
+            keySearch: keySearch,
+          }
+        );
+        setData(response.data.products);
       }
     } catch (error) {
       throw new Error(error);
@@ -149,7 +152,8 @@ const Productlist = () => {
   };
   useEffect(() => {
     fetchData();
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [keySearch]);
   const onDeleteProduct = async (id, e) => {
     if (window.confirm("Bạn có chắc chắn muốn xóa dữ liệu này không?")) {
       try {
@@ -392,6 +396,15 @@ const Productlist = () => {
         <button className="button" onClick={() => handleShowModalAddProduct()}>
           Add Product
         </button>
+      </div>
+      <div className="input_container">
+        <input
+          type="text"
+          className="input"
+          placeholder="Search here"
+          value={keySearch}
+          onChange={(e) => setKeySearch(e.target.value)}
+        />
       </div>
       <div className="container table-responsive">
         <table className="table table-bordered table-hover">
