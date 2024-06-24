@@ -179,7 +179,7 @@ const Dashboard = () => {
         const totalOrders = response.data.totalOrders;
         setCountOrder(totalOrders);
         let sumPrice = 0;
-        response.data.forEach((order) => {
+        response.data.orders.forEach((order) => {
           sumPrice += order.totalPrice;
         });
         setTotalPrice(sumPrice);
